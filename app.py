@@ -509,8 +509,55 @@ if "game" not in st.session_state:
 
 game = st.session_state.game
 
+# Intro popup state and dismiss handler
+if "show_intro" not in st.session_state:
+    st.session_state.show_intro = True
+qp = st.query_params
+if qp.get("intro") == "0":
+    try:
+        del st.query_params["intro"]
+    except Exception:
+        pass
+    st.session_state.show_intro = False
+    st.rerun()
+
 st.title("Cognition Battleship")
 st.caption("Play Battleship against an AI. Click on the AI board to fire.")
+
+# First-time instructions overlay
+if st.session_state.get("show_intro", False):
+    st.markdown(
+        """
+        <style>
+        .intro-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display:flex; align-items:center; justify-content:center; z-index: 9999; }
+        .intro-card { background: #ffffff; color: #111111; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); padding: 20px 24px; max-width: 460px; width: 92%; }
+        .intro-card h3 { margin: 0 0 8px 0; font-size: 1.25rem; }
+        .intro-card ul { margin: 0 0 10px 1.1rem; }
+        .intro-card .btn { display:inline-block; margin-top: 8px; padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.2); text-decoration: none; background: #f6f6f6; color: #111111; cursor: pointer; }
+        @media (prefers-color-scheme: dark) {
+          .intro-card { background: #1f1f1f; color: #f5f5f5; }
+          .intro-card .btn { background: #2a2a2a; color: #f5f5f5; border: 1px solid rgba(255,255,255,0.25); }
+        }
+        </style>
+        <div class="intro-overlay">
+          <div class="intro-card">
+            <h3>How to Play</h3>
+            <ul>
+              <li>Use the sidebar to Reset, Randomize, or Reposition your ships (before first move).</li>
+              <li>Reposition: click a ship to pick it up, toggle H/V in the sidebar, then click a destination cell to drop.</li>
+              <li>Click a cell on the AI board to fire.</li>
+              <li>💣 = hit, 💧 = miss, 💥 = sunk ship.</li>
+              <li>Moves are numbered in the Log below the boards; newest appears on top.</li>
+            </ul>
+            <form action="" method="get" style="margin:0;">
+              <input type="hidden" name="intro" value="0" />
+              <button type="submit" class="btn">Got it</button>
+            </form>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # Sidebar controls
 with st.sidebar:
