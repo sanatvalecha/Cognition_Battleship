@@ -114,4 +114,6 @@ venv.bak/
 
 # mypy
 
+secrets.toml
+
 battleship/

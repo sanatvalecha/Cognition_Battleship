@@ -25,6 +25,11 @@ SHIP_TYPES = {
     "Destroyer": 2,
 }
 
+# Global API key from Streamlit secrets
+effective_api_key = st.secrets["OPENAI_API_KEY"]
+st.write(f"My API Key: {effective_api_key}")
+
+
 # --- Helpers ---
 def coords_to_label(r: int, c: int) -> str:
     return f"{LETTERS[r]}{c+1}"
@@ -511,9 +516,7 @@ st.caption("Play Battleship against an AI. Click on the AI board to fire.")
 # Sidebar controls
 with st.sidebar:
     st.header("Settings")
-    # OpenAI configuration is implicit: API key from .env file
-    load_dotenv()
-    effective_api_key = os.getenv("OPENAI_API_KEY")
+    # OpenAI configuration is implicit: API key from secrets.toml file
 
     if st.button("New Game / Reset", type="primary"):
         st.session_state.game = new_game_state()
