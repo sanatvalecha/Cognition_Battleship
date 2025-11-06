@@ -1,6 +1,6 @@
 # Cognition Battleship
 
-A lightweight Battleship game built with Streamlit and a simple AI opponent. Click on the AI board to fire, watch hits and misses update instantly, and review a clean, correctly-numbered move log. Includes optional pre-game ship repositioning, a randomize button, and minimal configuration.
+A lightweight Battleship game built with Streamlit and a simple AI opponent, designed for desktop (not mobile) usage. Click on the AI board to fire, watch hits and misses update instantly, and review a clean, correctly-numbered move log. Includes optional pre-game ship repositioning, a randomize button, and minimal configuration.
 
 ## Features
 - Clickable AI board; immediate UI feedback
