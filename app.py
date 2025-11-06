@@ -27,7 +27,6 @@ SHIP_TYPES = {
 
 # Global API key from Streamlit secrets
 effective_api_key = st.secrets["OPENAI_API_KEY"]
-st.write(f"My API Key: {effective_api_key}")
 
 
 # --- Helpers ---
